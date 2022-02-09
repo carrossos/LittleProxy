@@ -1425,6 +1425,8 @@ public class ClientToProxyConnection extends ProxyConnection<HttpRequest> {
     }
 
     private void recordClientDisconnected() {
+    	currentFilters.clientToProxyDisconnected(channel);
+    	
         try {
             InetSocketAddress clientAddress = getClientAddress();
             for (ActivityTracker tracker : proxyServer

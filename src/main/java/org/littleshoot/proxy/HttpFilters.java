@@ -1,5 +1,6 @@
 package org.littleshoot.proxy;
 
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.*;
 import org.littleshoot.proxy.impl.ProxyUtils;
@@ -207,5 +208,7 @@ public interface HttpFilters {
      * @param serverCtx the {@link io.netty.channel.ChannelHandlerContext} used to connect to the server
      */
     void proxyToServerConnectionSucceeded(ChannelHandlerContext serverCtx);
+
+	void clientToProxyDisconnected(Channel channel);
 
 }

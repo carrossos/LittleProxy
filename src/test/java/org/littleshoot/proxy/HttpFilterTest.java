@@ -1,5 +1,6 @@
 package org.littleshoot.proxy;
 
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpResponse;
@@ -828,7 +829,8 @@ public class HttpFilterTest {
         private final AtomicBoolean proxyToServerResolutionSucceeded = new AtomicBoolean(false);
         private final AtomicBoolean proxyToServerConnectionSSLHandshakeStarted = new AtomicBoolean(false);
         private final AtomicBoolean serverToProxyResponseTimedOut = new AtomicBoolean(false);
-
+        private final AtomicBoolean clientToProxyDisconnected = new AtomicBoolean(false);
+        
         public boolean isProxyToServerConnectionFailedInvoked() {
             return proxyToServerConnectionFailed.get();
         }
@@ -986,5 +988,10 @@ public class HttpFilterTest {
         public void proxyToServerConnectionSSLHandshakeStarted() {
             proxyToServerConnectionSSLHandshakeStarted.set(true);
         }
+
+		@Override
+		public void clientToProxyDisconnected(Channel channel) {
+			clientToProxyDisconnected.set(true);
+		}
     }
 }
