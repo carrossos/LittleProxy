@@ -1,14 +1,6 @@
-[![Build Status](https://travis-ci.org/adamfisk/LittleProxy.png?branch=master)](https://travis-ci.org/adamfisk/LittleProxy)
-
 LittleProxy is a high performance HTTP proxy written in Java atop Trustin Lee's excellent [Netty](http://netty.io) event-based networking library. It's quite stable, performs well, and is easy to integrate into your projects. 
 
-One option is to clone LittleProxy and run it from the command line. This is as simple as:
-
-```
-$ git clone git://github.com/adamfisk/LittleProxy.git
-$ cd LittleProxy
-$ ./run.bash
-```
+Forked from original author as no longer maintained.
 
 You can embed LittleProxy in your own projects through Maven with the following:
 
@@ -140,20 +132,3 @@ existingServer.clone().withPort(8081).start()
 ```
 
 For examples of configuring logging, see [src/test/resources/log4j.xml](src/test/resources/log4j.xml).
-
-If you have questions, please visit our Google Group here:
-
-https://groups.google.com/forum/#!forum/littleproxy
-
-To subscribe, send an E-Mail to mailto:LittleProxy+subscribe@googlegroups.com. 
-Simply answering, don't clicking the button, bypasses Googles registration 
-process. You will become a member. 
-
-Benchmarking instructions and results can be found [here](performance).
-
-Acknowledgments
----------------
-
-Many thanks to [The Measurement Factory](http://www.measurement-factory.com/) for the
-use of [Co-Advisor](http://coad.measurement-factory.com/) for HTTP standards
-compliance testing. 
