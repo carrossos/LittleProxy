@@ -62,6 +62,9 @@ import static org.littleshoot.proxy.impl.ConnectionState.*;
  */
 abstract class ProxyConnection<I extends HttpObject> extends
         SimpleChannelInboundHandler<Object> {
+	
+	private static final int HANDSHAKE_TIMEOUT;
+	
     protected final ProxyConnectionLogger LOG = new ProxyConnectionLogger(this);
 
     protected final DefaultHttpProxyServer proxyServer;
@@ -377,6 +380,16 @@ abstract class ProxyConnection<I extends HttpObject> extends
             channel.config().setAutoRead(true);
         }
         SslHandler handler = new SslHandler(sslEngine);
+        
+        // Very slow connection can timeout during handshare and
+        // require dedicated timeout
+        if (HANDSHAKE_TIMEOUT >= 0) {
+        	LOG.debug("Setting handshake timeout: {}",
+        			HANDSHAKE_TIMEOUT);
+        	
+        	handler.setHandshakeTimeoutMillis(HANDSHAKE_TIMEOUT);
+        }
+        
         if(pipeline.get("ssl") == null) {
             pipeline.addFirst("ssl", handler);
         } else {
@@ -836,4 +849,14 @@ abstract class ProxyConnection<I extends HttpObject> extends
         protected abstract void responseWritten(HttpResponse httpResponse);
     }
 
+    // FIXME: better loading of config
+    static {
+    	String handshakeTimeout = System.getProperty("proxy.ssl.handshake_timeout");
+    	
+    	if (handshakeTimeout == null) {
+    		HANDSHAKE_TIMEOUT = -1;
+    	} else {
+    		HANDSHAKE_TIMEOUT = Integer.parseInt(handshakeTimeout);
+    	}
+    }
 }
