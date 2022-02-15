@@ -1,3 +1,7 @@
+# littleproxy
+
+[![Build](https://github.com/carrossos/LittleProxy/actions/workflows/build.yml/badge.svg)](https://github.com/carrossos/LittleProxy/actions/workflows/build.yml)
+
 LittleProxy is a high performance HTTP proxy written in Java atop Trustin Lee's excellent [Netty](http://netty.io) event-based networking library. It's quite stable, performs well, and is easy to integrate into your projects. 
 
 Forked from original author as no longer maintained.
